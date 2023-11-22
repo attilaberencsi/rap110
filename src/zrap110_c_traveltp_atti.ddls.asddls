@@ -1,6 +1,6 @@
 @AccessControl.authorizationCheck: #CHECK
 @Metadata.allowExtensions: true
-@EndUserText.label: 'Projection View forTravel'
+@EndUserText.label: 'Projection View for Travel'
 @ObjectModel.semanticKey: [ 'TravelID' ]
 @Search.searchable: true
 define root view entity ZRAP110_C_TRAVELTP_ATTI

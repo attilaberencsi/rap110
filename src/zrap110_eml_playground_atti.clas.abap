@@ -1,39 +1,39 @@
-class ZRAP110_EML_PLAYGROUND_ATTI definition
-  public
-  final
-  create public .
+CLASS zrap110_eml_playground_atti DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces IF_OO_ADT_CLASSRUN .
-protected section.
-private section.
+    INTERFACES if_oo_adt_classrun .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 ENDCLASS.
 
 
 
-CLASS ZRAP110_EML_PLAYGROUND_ATTI IMPLEMENTATION.
+CLASS zrap110_eml_playground_atti IMPLEMENTATION.
 
 
-METHOD IF_OO_ADT_CLASSRUN~MAIN.
-     "declare internal table using derived type
-     DATA travel_keys TYPE TABLE FOR READ IMPORT ZRAP110_R_TravelTP_ATTI .
+  METHOD if_oo_adt_classrun~main.
+    "declare internal table using derived type
+    DATA travel_keys TYPE TABLE FOR READ IMPORT ZRAP110_R_TravelTP_ATTI .
 
-     "fill in relevant travel keys for READ request
-     travel_keys = VALUE #( ( TravelID = 'xxxxx' )
-                           "( TravelID = '...' )
-                          ).
+    "fill in relevant travel keys for READ request
+    travel_keys = VALUE #( ( TravelID = 'xxxxx' )
+                          "( TravelID = '...' )
+                         ).
 
-     "insert your coding here
-     "read _travel_ instances for specified key
-     READ ENTITIES OF ZRAP110_R_TravelTP_ATTI
-       ENTITY Travel
+    "insert your coding here
+    "read _travel_ instances for specified key
+    READ ENTITIES OF ZRAP110_R_TravelTP_ATTI
+      ENTITY Travel
 *        ALL FIELDS
-        FIELDS ( TravelID AgencyID CustomerID BeginDate EndDate )
-        WITH travel_keys
-    RESULT DATA(lt_travels_read)
-    FAILED DATA(failed)
-    REPORTED DATA(reported).
+       FIELDS ( TravelID AgencyID CustomerID BeginDate EndDate )
+       WITH travel_keys
+   RESULT DATA(lt_travels_read)
+   FAILED DATA(failed)
+   REPORTED DATA(reported).
 
     "console output
     out->write( | ***Exercise 10: Implement the Base BO Behavior - Functions*** | ).
@@ -65,5 +65,5 @@ METHOD IF_OO_ADT_CLASSRUN~MAIN.
 *      out->write( | ---------------           | ).
 *    ENDLOOP.
 
-ENDMETHOD.
+  ENDMETHOD.
 ENDCLASS.

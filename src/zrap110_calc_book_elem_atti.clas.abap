@@ -1,14 +1,14 @@
-class ZRAP110_CALC_BOOK_ELEM_ATTI definition
-  public
-  final
-  create public .
+CLASS zrap110_calc_book_elem_atti DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
-protected section.
-private section.
+  PUBLIC SECTION.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 ENDCLASS.
 
 
 
-CLASS ZRAP110_CALC_BOOK_ELEM_ATTI IMPLEMENTATION.
+CLASS zrap110_calc_book_elem_atti IMPLEMENTATION.
 ENDCLASS.
