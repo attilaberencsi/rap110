@@ -1,0 +1,154 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Travel', 
+    typeNamePlural: 'Travels', 
+    title: {
+      type: #STANDARD, 
+      label: 'Travel', 
+      value: 'TravelID'
+    }
+  }, 
+  presentationVariant: [ {
+    sortOrder: [ {
+      by: 'TravelID', 
+      direction: #DESC
+    } ], 
+    visualizations: [ {
+      type: #AS_LINEITEM
+    } ]
+  } ]
+}
+annotate view ZRAP110_C_TRAVELTP_ATTI with
+{
+  @UI.facet: [ {
+    id: 'idCollection', 
+    type: #COLLECTION, 
+    label: 'Travel', 
+    position: 10 
+  }, 
+  {
+    id: 'idIdentification', 
+    parentId: 'idCollection', 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'General Information', 
+    position: 10 
+  }, 
+  {
+    id: 'idLineitem', 
+    type: #LINEITEM_REFERENCE, 
+    label: 'Booking', 
+    position: 20 , 
+    targetElement: '_Booking'
+  } ]
+  @UI.lineItem: [ {
+    position: 10 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 10 
+  } ]
+  @UI.selectionField: [ {
+    position: 10 
+  } ]
+  TravelID;
+  
+  @UI.lineItem: [ {
+    position: 20 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 20 
+  } ]
+  @UI.selectionField: [ {
+    position: 20 
+  } ]
+  AgencyID;
+  
+  @UI.lineItem: [ {
+    position: 30 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 30 
+  } ]
+  @UI.textArrangement: #TEXT_FIRST
+  @UI.selectionField: [ {
+    position: 30 
+  } ]
+  CustomerID;
+  
+  @UI.identification: [ {
+    position: 40 
+  } ]
+  BeginDate;
+  
+  @UI.identification: [ {
+    position: 50 
+  } ]
+  EndDate;
+  
+  @UI.identification: [ {
+    position: 60 
+  } ]
+  BookingFee;
+  
+  @UI.identification: [ {
+    position: 70 
+  } ]
+  TotalPrice;
+  
+  @UI.identification: [ {
+    position: 90 
+  } ]
+  Description;
+  
+  @UI.lineItem: [ {
+    position: 100 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 100 
+  } ]
+  @UI.textArrangement: #TEXT_ONLY
+  OverallStatus;
+  
+  @UI.identification: [ {
+    position: 110 , 
+    label: 'Upload a File'
+  } ]
+  Attachment;
+  
+  @UI.hidden: true
+  MimeType;
+  
+  @UI.hidden: true
+  FileName;
+  
+  @UI.hidden: true
+  LastChangedAt;
+  
+  @UI.lineItem: [ {
+    position: 150 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 150 
+  } ]
+  CreatedBy;
+  
+  @UI.hidden: true
+  CreatedAt;
+  
+  @UI.lineItem: [ {
+    position: 170 , 
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 170 
+  } ]
+  LocalLastChangedBy;
+  
+  @UI.hidden: true
+  LocalLastChangedAt;
+}

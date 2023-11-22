@@ -1,0 +1,94 @@
+managed;
+strict ( 2 );
+with draft;
+
+define behavior for ZRAP110_R_TRAVELTP_ATTI alias Travel
+implementation in class zrap110_BP_TravelTP_ATTI unique
+persistent table ZRAP110_ATRAVATT
+draft table ZRAP110_DTRAVATT
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master( global )
+
+{
+  field ( readonly )
+   LastChangedAt,
+   CreatedAt,
+   LocalLastChangedAt;
+
+  field ( readonly : update )
+   TravelID;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZRAP110_ATRAVATT
+  {
+    TravelID = TRAVEL_ID;
+    AgencyID = AGENCY_ID;
+    CustomerID = CUSTOMER_ID;
+    BeginDate = BEGIN_DATE;
+    EndDate = END_DATE;
+    BookingFee = BOOKING_FEE;
+    TotalPrice = TOTAL_PRICE;
+    CurrencyCode = CURRENCY_CODE;
+    Description = DESCRIPTION;
+    OverallStatus = OVERALL_STATUS;
+    Attachment = ATTACHMENT;
+    MimeType = MIME_TYPE;
+    FileName = FILE_NAME;
+    LastChangedAt = LAST_CHANGED_AT;
+    CreatedBy = CREATED_BY;
+    CreatedAt = CREATED_AT;
+    LocalLastChangedBy = LOCAL_LAST_CHANGED_BY;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _Booking { create; with draft; }
+}
+
+define behavior for ZRAP110_R_BOOKINGTP_ATTI alias Booking
+implementation in class zrap110_BP_BookingTP_ATTI unique
+persistent table ZRAP110_ABOOKATT
+draft table ZRAP110_DBOOKATT
+etag master LocalLastChangedAt
+lock dependent by _Travel
+authorization dependent by _Travel
+
+{
+  field ( readonly )
+   TravelID,
+   LocalLastChangedAt;
+
+  field ( readonly : update )
+   BookingID;
+
+
+  update;
+  delete;
+
+  mapping for ZRAP110_ABOOKATT
+  {
+    TravelID = TRAVEL_ID;
+    BookingID = BOOKING_ID;
+    BookingDate = BOOKING_DATE;
+    CustomerID = CUSTOMER_ID;
+    CarrierID = CARRIER_ID;
+    ConnectionID = CONNECTION_ID;
+    FlightDate = FLIGHT_DATE;
+    BookingStatus = BOOKING_STATUS;
+    FlightPrice = FLIGHT_PRICE;
+    CurrencyCode = CURRENCY_CODE;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _Travel { with draft; }
+}

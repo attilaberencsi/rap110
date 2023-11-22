@@ -1,0 +1,30 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZRAP110_C_TRAVELTP_ATTI alias Travel
+use etag
+
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+
+  use association _Booking { create; with draft; }
+}
+
+define behavior for ZRAP110_C_BOOKINGTP_ATTI alias Booking
+use etag
+
+{
+  use update;
+  use delete;
+
+  use association _Travel { with draft; }
+}

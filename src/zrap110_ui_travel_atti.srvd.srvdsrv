@@ -1,0 +1,13 @@
+@ObjectModel.leadingEntity.name: 'ZRAP110_C_TRAVELTP_ATTI'
+define service zrap110_UI_Travel_ATTI {
+  expose ZRAP110_C_TRAVELTP_ATTI as Travel;
+  expose ZRAP110_C_BOOKINGTP_ATTI as Booking;
+  expose /DMO/I_CUSTOMER as Customer;
+  expose /DMO/I_CARRIER as Carrier;
+  expose /DMO/I_CONNECTION as Connection;
+  expose /DMO/I_FLIGHT as Date;
+  expose /DMO/I_BOOKING_STATUS_VH as BookingStatus;
+  expose I_CURRENCY as Currency;
+  expose /DMO/I_CUSTOMER_STDVH as CustomerVh;
+  expose I_CURRENCYSTDVH as Currencyvh2;
+}
