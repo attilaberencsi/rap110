@@ -1,0 +1,9 @@
+@EndUserText.label: 'Authorization for Travel'
+@MappingRole: true
+define role ZRAP110_C_TRAVELTP_ATTI {
+  grant
+    select
+      on
+        ZRAP110_C_TRAVELTP_ATTI; 
+        
+}

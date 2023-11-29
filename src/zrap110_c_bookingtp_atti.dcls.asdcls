@@ -1,0 +1,9 @@
+@EndUserText.label: 'Authorization for Booking'
+@MappingRole: true
+define role ZRAP110_C_BOOKINGTP_ATTI {
+  grant
+    select
+      on
+        ZRAP110_C_BOOKINGTP_ATTI; 
+        
+}
