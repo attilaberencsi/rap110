@@ -1,15 +1,15 @@
-class ZRAP110_BP_BOOKINGTP_ATTI definition
-  public
-  abstract
-  final
-  for behavior of ZRAP110_R_TRAVELTP_ATTI .
+CLASS zrap110_bp_bookingtp_atti DEFINITION
+  PUBLIC
+  ABSTRACT
+  FINAL
+  FOR BEHAVIOR OF zrap110_r_traveltp_atti .
 
-public section.
-protected section.
-private section.
+  PUBLIC SECTION.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 ENDCLASS.
 
 
 
-CLASS ZRAP110_BP_BOOKINGTP_ATTI IMPLEMENTATION.
+CLASS zrap110_bp_bookingtp_atti IMPLEMENTATION.
 ENDCLASS.

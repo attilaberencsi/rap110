@@ -16,6 +16,12 @@ use etag
   use action Resume;
   use action Prepare;
 
+  use action acceptTravel;
+  use action rejectTravel;
+  use action createTravel;
+
+  use action checkDates;
+
   use association _Booking { create; with draft; }
 }
 

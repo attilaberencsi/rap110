@@ -1,94 +1,149 @@
-managed;
+managed implementation in class zrap110_BP_TravelTP_ATTI unique;
 strict ( 2 );
 with draft;
 
+//--- TRAVEL ENTITY ---//
 define behavior for ZRAP110_R_TRAVELTP_ATTI alias Travel
-implementation in class zrap110_BP_TravelTP_ATTI unique
-persistent table ZRAP110_ATRAVATT
-draft table ZRAP110_DTRAVATT
+
+persistent table zrap110_atravatt
+draft table zrap110_dtravatt
 etag master LocalLastChangedAt
 lock master total etag LastChangedAt
-authorization master( global )
+authorization master ( global )
+late numbering
+
 
 {
+
+  // TRAVEL - FIELD CONTROL
   field ( readonly )
-   LastChangedAt,
-   CreatedAt,
-   LocalLastChangedAt;
+  LastChangedAt,
+  CreatedAt,
+  LocalLastChangedAt;
 
   field ( readonly : update )
-   TravelID;
+  TravelID;
 
-
+  // TRAVEL - FEATURES
   create;
-  update;
-  delete;
+  update ( features : instance );
+  delete ( features : instance );
 
-  draft action Edit;
+  // TRAVEL - ACTIONS
+  action ( features : instance ) acceptTravel result [1] $self;
+  action ( features : instance ) rejectTravel result [1] $self;
+  internal action recalcTotalPrice;
+  static default factory action createTravel parameter ZRAP110_A_Create_Travel_ATTI [1];
+
+  // TRAVEL - VALIDATION AND DETERMINATION TRIGGERS
+  determine action checkDates
+  {
+    validation validateDates;
+  }
+
+  // TRAVEL - VALIDATIONS
+  validation validateCustomer on save { create; field CustomerID; }
+  validation validateAgency on save { create; field AgencyID; }
+  validation validateDates on save { create; field BeginDate, EndDate; }
+
+  // TRAVEL - ACTIONS
+  determination setInitialTravelValues on modify { create; }
+  determination calculateTotalPrice on modify { create; field BookingFee, CurrencyCode; }
+
+  // TRAVEL - DRAFT ACTIONS
+  draft action ( features : instance ) Edit;
   draft action Activate;
   draft action Discard;
   draft action Resume;
-  draft determine action Prepare;
 
-  mapping for ZRAP110_ATRAVATT
+  // TRAVEL - DRAFT VALIDATION AND DETERMINATION TRIGGERS
+  draft determine action Prepare
   {
-    TravelID = TRAVEL_ID;
-    AgencyID = AGENCY_ID;
-    CustomerID = CUSTOMER_ID;
-    BeginDate = BEGIN_DATE;
-    EndDate = END_DATE;
-    BookingFee = BOOKING_FEE;
-    TotalPrice = TOTAL_PRICE;
-    CurrencyCode = CURRENCY_CODE;
-    Description = DESCRIPTION;
-    OverallStatus = OVERALL_STATUS;
-    Attachment = ATTACHMENT;
-    MimeType = MIME_TYPE;
-    FileName = FILE_NAME;
-    LastChangedAt = LAST_CHANGED_AT;
-    CreatedBy = CREATED_BY;
-    CreatedAt = CREATED_AT;
-    LocalLastChangedBy = LOCAL_LAST_CHANGED_BY;
-    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+    validation validateCustomer;
+    validation validateAgency;
+    validation validateDates;
+    validation Booking~validateBookingStatus;
   }
 
-  association _Booking { create; with draft; }
+  // TRAVEL - PROPERTY TO DDIC MAP
+  mapping for zrap110_atravatt
+    {
+      TravelID           = TRAVEL_ID;
+      AgencyID           = AGENCY_ID;
+      CustomerID         = CUSTOMER_ID;
+      BeginDate          = BEGIN_DATE;
+      EndDate            = END_DATE;
+      BookingFee         = BOOKING_FEE;
+      TotalPrice         = TOTAL_PRICE;
+      CurrencyCode       = CURRENCY_CODE;
+      Description        = DESCRIPTION;
+      OverallStatus      = OVERALL_STATUS;
+      Attachment         = ATTACHMENT;
+      MimeType           = MIME_TYPE;
+      FileName           = FILE_NAME;
+      LastChangedAt      = LAST_CHANGED_AT;
+      CreatedBy          = CREATED_BY;
+      CreatedAt          = CREATED_AT;
+      LocalLastChangedBy = LOCAL_LAST_CHANGED_BY;
+      LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+    }
+
+  // TRAVEL - ASSOCIATIONS
+  // Enables to create Booking through association
+  association _Booking { create ( features : instance ); with draft; }
 }
 
+
+//--- BOOKING ENTITY---//
 define behavior for ZRAP110_R_BOOKINGTP_ATTI alias Booking
 implementation in class zrap110_BP_BookingTP_ATTI unique
-persistent table ZRAP110_ABOOKATT
-draft table ZRAP110_DBOOKATT
+persistent table zrap110_abookatt
+draft table zrap110_dbookatt
 etag master LocalLastChangedAt
 lock dependent by _Travel
 authorization dependent by _Travel
+late numbering
 
 {
+
+  // BOOKING - FIELD CONTROL
   field ( readonly )
-   TravelID,
-   LocalLastChangedAt;
+  TravelID,
+  LocalLastChangedAt;
 
   field ( readonly : update )
-   BookingID;
+  BookingID;
 
-
+  // BOOKING - FEATURES
   update;
   delete;
 
-  mapping for ZRAP110_ABOOKATT
-  {
-    TravelID = TRAVEL_ID;
-    BookingID = BOOKING_ID;
-    BookingDate = BOOKING_DATE;
-    CustomerID = CUSTOMER_ID;
-    CarrierID = CARRIER_ID;
-    ConnectionID = CONNECTION_ID;
-    FlightDate = FLIGHT_DATE;
-    BookingStatus = BOOKING_STATUS;
-    FlightPrice = FLIGHT_PRICE;
-    CurrencyCode = CURRENCY_CODE;
-    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
-  }
+  // BOOKING - VALIDATIONS
+  validation validateBookingStatus on save { create; field BookingStatus; }
 
+  // BOOKING - DETERMINATIONS
+  determination setInitialBookingValues on modify { create; }
+  determination calculateTotalPrice on modify { create; field FlightPrice, CurrencyCode; }
+
+  // BOOKING - FUNCTIONS
+  function getDaysToFlight result [1] ZRAP110_A_DaysToFlight_ATTI;
+
+  // BOOKING - PROPERTY TO DDIC MAP
+  mapping for zrap110_abookatt
+    {
+      TravelID           = TRAVEL_ID;
+      BookingID          = BOOKING_ID;
+      BookingDate        = BOOKING_DATE;
+      CustomerID         = CUSTOMER_ID;
+      CarrierID          = CARRIER_ID;
+      ConnectionID       = CONNECTION_ID;
+      FlightDate         = FLIGHT_DATE;
+      BookingStatus      = BOOKING_STATUS;
+      FlightPrice        = FLIGHT_PRICE;
+      CurrencyCode       = CURRENCY_CODE;
+      LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+    }
+
+  // BOOKING - ASSOCIATIONS
   association _Travel { with draft; }
 }

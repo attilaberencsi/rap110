@@ -1,4 +1,4 @@
-@EndUserText.label: 'Parameter for Creating Travel+Booking'
+@EndUserText.label: 'Para for Factory Create Travel+Booking'
 define abstract entity ZRAP110_A_Create_Travel_ATTI
 {
   @Consumption.valueHelpDefinition: [ {
@@ -7,7 +7,7 @@ define abstract entity ZRAP110_A_Create_Travel_ATTI
       element: 'CustomerID'
     }
   } ]
-  customer_id : /DMO/CUSTOMER_ID;
+  customer_id : /dmo/customer_id;
   @Consumption.valueHelpDefinition: [ {
     entity: {
       name: '/DMO/I_Flight_StdVH', 
@@ -23,7 +23,7 @@ define abstract entity ZRAP110_A_Create_Travel_ATTI
       usage: #RESULT
     } ]
   } ]
-  carrier_id : /DMO/CARRIER_ID;
+  carrier_id : /dmo/carrier_id;
   @Consumption.valueHelpDefinition: [ {
     entity: {
       name: '/DMO/I_Flight_StdVH', 
@@ -39,7 +39,7 @@ define abstract entity ZRAP110_A_Create_Travel_ATTI
       usage: #FILTER_AND_RESULT
     } ]
   } ]
-  connection_id : /DMO/CONNECTION_ID;
+  connection_id : /dmo/connection_id;
   @Consumption.valueHelpDefinition: [ {
     entity: {
       name: '/DMO/I_Flight_StdVH', 
@@ -55,6 +55,6 @@ define abstract entity ZRAP110_A_Create_Travel_ATTI
       usage: #FILTER_AND_RESULT
     } ]
   } ]
-  flight_date : /DMO/FLIGHT_DATE;
+  flight_date : /dmo/flight_date;
   
 }

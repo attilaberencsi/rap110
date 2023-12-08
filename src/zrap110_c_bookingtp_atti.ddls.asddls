@@ -21,7 +21,7 @@ define view entity ZRAP110_C_BOOKINGTP_ATTI
               name: '/DMO/I_Customer_StdVH',
               element: 'CustomerID'
             },
-            useForValidation: true
+            useForValidation: true            
           } ]
           @ObjectModel.text.element: ['CustomerName'] //annotation added
           CustomerID,
