@@ -6,4 +6,10 @@ Exercises: https://github.com/SAP-samples/abap-platform-rap-workshops/tree/main/
 - transactional processing
 - transient fields / calculated virtual elements by ABAP classes
 - data streams, blob object handling
-- value helps
+- value helps used for validations also
+- validations
+- determinations
+- internal actions
+- determine actions
+- message handling and reporting
+- side effects
