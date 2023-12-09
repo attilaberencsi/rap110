@@ -29,6 +29,14 @@ late numbering
   update ( features : instance );
   delete ( features : instance );
 
+  // TRAVEL - SIDE EFFECTS
+  side effects
+  {
+    field BookingFee affects field TotalPrice;
+    field CurrencyCode affects field TotalPrice;
+    determine action checkDates executed on field BeginDate, field EndDate affects messages;
+  }
+
   // TRAVEL - ACTIONS
   action ( features : instance ) acceptTravel result [1] $self;
   action ( features : instance ) rejectTravel result [1] $self;
@@ -124,6 +132,13 @@ late numbering
   // BOOKING - DETERMINATIONS
   determination setInitialBookingValues on modify { create; }
   determination calculateTotalPrice on modify { create; field FlightPrice, CurrencyCode; }
+
+  // BOOKING - SIDE EFFECTS
+  side effects
+  {
+    field FlightPrice affects field _Travel.TotalPrice;
+    field CurrencyCode affects field _Travel.TotalPrice;
+  }
 
   // BOOKING - FUNCTIONS
   function getDaysToFlight result [1] ZRAP110_A_DaysToFlight_ATTI;
